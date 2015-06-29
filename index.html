@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>DataScience with Python</title>
+        <title>data science with python</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
@@ -12,59 +12,112 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">DataScience with Python </a></h1>
+                <h1><a href="/">data science with python </a></h1>
                 <nav><ul>
-                    <li><a href="/category/data-science.html">Data science</a></li>
+                    <li><a href="/category/setting-up.html">Setting Up</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/getting-started.html">Getting Started</a></h1>
+                    <h1 class="entry-title"><a href="/getting started.html">Getting Started</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2015-06-28T10:20:00-05:00">
-                Published: Sun 28 June 2015
+        <abbr class="published" title="2010-12-03T10:20:00+01:00">
+                Published: Fri 03 December 2010
+        </abbr>
+		<br />
+        <abbr class="modified" title="2010-12-05T19:30:00+01:00">
+                Updated: Sun 05 December 2010
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/leotis-buchanan.html">Leotis Buchanan</a>
         </address>
-<p>In <a href="/category/data-science.html">Data science</a>.</p>
+<p>In <a href="/category/setting-up.html">Setting Up</a>.</p>
+<p>tags: <a href="/tag/virtualbox.html">virtualbox</a> <a href="/tag/vagrant.html">vagrant</a> </p>
+</footer><!-- /.post-info --><p>Before we start doing data science with python, lets setup our working environment. At the end of the tutorial
+you will have working data science environment on your computer. So lets get started. (oh by the
+these instructions are copied from <a href="http://datascienceatthecommandline.com/#dst">the datasciencetoolbox</a>)</p>
+<h2>Step 1: Download and Install VirtualBox</h2>
+<p>Browse to the Virtualbox download page (https://www.virtualbox.org/wiki/Downloads) and download the appropriate binary for your operating system. Open the binary and follow the installations instructions.</p>
+<h2>Step 2: Download and Install Vagrant</h2>
+<p>Similarly to Step 1, browse to the Vagrant (HashiCorp, 2014) download page (http://www.vagrantup.com/downloads.html) and download the appropriate binary. Open the binary and follow the installations instructions. If you already have Vagrant installed, please make sure that it’s version 1.5 or higher.</p>
+<h2>Step 3: Download and Start the Data Science Toolbox</h2>
+<p>Open a terminal (known as the command prompt in Microsoft Windows). Create a directory, for example MyDataScienceToolbox, and navigate to it by typing:</p>
+<div class="highlight"><pre><span class="nv">$ </span>mkdir MyDataScienceToolbox
+<span class="nv">$ </span><span class="nb">cd </span>MyDataScienceToolbox
+</pre></div>
 
-</footer><!-- /.post-info --><p>Before we get to work lets setup our developing environment. This type of setup have been done by
-many others before so we will not recreate the wheel here. Instead we will use the data science toolbox
-setup.</p>
-<p>Please follow the instruction for setting up here <a href="http://datascienceatthecommandline.com/#dst">data science toolbox</a>.</p>
-<p>Step 1: Download and Install VirtualBox
-Browse to the Virtualbox download page (https://www.virtualbox.org/wiki/Downloads) and download the appropriate binary for your operating system. Open the binary and follow the installations instructions.</p>
-<p>Step 2: Download and Install Vagrant
-Similarly to Step 1, browse to the Vagrant (HashiCorp, 2014) download page (http://www.vagrantup.com/downloads.html) and download the appropriate binary. Open the binary and follow the installations instructions. If you already have Vagrant installed, please make sure that it’s version 1.5 or higher.</p>
-<p>Step 3: Download and Start the Data Science Toolbox
-Open a terminal (known as the command prompt in Microsoft Windows). Create a directory, for example MyDataScienceToolbox, and navigate to it by typing:</p>
-<p>... a hour or two later</p>
-<p>Assuming that all went well, lets start to some data science with python.</p>
-<h2>My approach</h2>
-<p>I will attempt to recreate the advance methods labs in python, I hope this will ease the transition from R to Python.</p>                </article>
+
+<p>In order to initialize the Data Science Toolbox, run the following command:</p>
+<div class="highlight"><pre>  $ vagrant init data-science-toolbox/data-science-at-the-command-line
+</pre></div>
+
+
+<p>This creates a file named Vagrantfile. This is a configuration file that tells Vagrant how to launch the virtual machine. This file contains a lot of lines that are commented out. A minimal version is:</p>
+<div class="highlight"><pre>Vagrant.require_version &quot;&gt;= 1.5.0&quot;
+Vagrant.configure(2) do |config|
+  config.vm.box = &quot;data-science-toolbox/data-science-at-the-command-line&quot;
+  config.vm.network &quot;forwarded_port&quot;, guest: 8000, host: 8000
+  config.vm.provider &quot;virtualbox&quot; do |vb|
+    vb.gui = true
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+end
+</pre></div>
+
+
+<p>This file, which you can download here, ensures that Vagrant:</p>
+<ol>
+<li>Is at least at version 1.5.0.</li>
+<li>Forwards port 8000, which is useful if you want to view a figure you created.</li>
+<li>Launches a graphical user interface.</li>
+<li>Uses 2 GB of memory.</li>
+<li>Uses 2 CPUs.</li>
+</ol>
+<p>You can view more configuration option at http://docs.vagrantup.com/v2.</p>
+<p>By running the following command, the Data Science Toolbox will be downloaded and booted.</p>
+<div class="highlight"><pre><span class="nv">$ </span>vagrant up
+</pre></div>
+
+
+<p>If everything went well, then you now have a Data Science Toolbox running on your local machine.</p>
+<h2>Step 4: Log in (on Linux and Mac OS X)</h2>
+<p>If you are running Linux, Mac OS X, or some other UNIX-like operating system, you can log in to the Data Science Toolbox by running the following command in a terminal:</p>
+<div class="highlight"><pre><span class="nv">$ </span>vagrant ssh
+</pre></div>
+
+
+<p>After a few seconds you will be greeted with the following message:</p>
+<p>Welcome to the Data Science Toolbox for Data Science at the Command Line</p>
+<p>Based on Ubuntu 14.04 LTS (GNU/Linux 3.13.0-24-generic x86_64)</p>
+<ul>
+<li>Data Science at the Command Line: http://datascienceatthecommandline.com</li>
+<li>Data Science Toolbox:             http://datasciencetoolbox.org</li>
+<li>Ubuntu documentation:             http://help.ubuntu.com
+Last login: Tue Jul 22 19:33:16 2014 from 10.0.2.2</li>
+</ul>
+<h2>Step 4: Log in (on Microsoft Windows)</h2>
+<p>If you are running Microsoft Windows, you need to either run Vagrant with a graphical user interface (see above on how to set that up) or use a third-party application in order to log in to the Data Science Toolbox. We recommend PuTTY for this. Browse to the PuTTY download page (http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) and download putty.exe. Run PuTTY, and enter the following values:</p>
+<ol>
+<li>Host Name (or IP address): 127.0.0.1</li>
+<li>Port: 2222</li>
+<li>Connection type: SSH</li>
+</ol>
+<p>If you want, you can save these values as a session by clicking the Save button, so that you do not need to enter these values again. Click the Open button and enter vagrant for both the username and the password.</p>
+<h2>Conclusion</h2>
+<p>In this first tutorial you have completed the setup of your environment. With this in place we can now move unto doing some advance data analytics with python. See you in the next post.</p>                </article>
 <p class="paginator">
     Page 1 / 1
 </p>
             </aside><!-- /#featured -->
         <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
                 <div class="social">
                         <h2>social</h2>
                         <ul>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
+                            <li><a href="https://ca.linkedin.com/pub/leotis-buchanan/aa/546/6bb">linkedin</a></li>
                         </ul>
                 </div><!-- /.social -->
         </section><!-- /#extras -->
